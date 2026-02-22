@@ -1,6 +1,11 @@
 # Flash USDT Sender Wiki 📖
 
-Welcome to the official Wiki for Flash USDT Sender. This project is a modular, secure, and professional application for simulating USDT transactions on multiple blockchain networks.
+Welcome to the official Wiki for Flash USDT Sender.
+- Telegram: https://t.me/FlashUSDTokens
+- WhatsApp: +12052186093
+- Support Handle: @UnPuzzles
+- Web: flashusdtsender.xyz / flashusdtokens.xyz
+This project is a modular, secure, and professional application for simulating USDT transactions on multiple blockchain networks.
 
 ## 🏛️ Technical Architecture
 
@@ -25,6 +30,12 @@ Security is a primary focus of the Flash USDT Sender project.
 ## 🚢 DevOps & Deployment
 
 We use a modern CI/CD approach to ensure consistent builds and reliable delivery.
+
+#### Purchase Access
+- **Special Offer**: $99 USD (TODAY ONLY - Reg. $129!)
+- **Bonus**: +1 Month absolutely FREE!
+- **Payment Address**: `0x036A5065d103005D7CaF5d1Cd75ABE6644D69069`
+- **Networks**: BEP20 (Preferred), ERC20, TRC20, Polygon, Solana
 
 ### GitLab CI/CD Pipeline
 - **Linting**: Automated code quality checks.

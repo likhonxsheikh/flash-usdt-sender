@@ -9,7 +9,10 @@
 
 **The Ultimate Multi-Chain USDT Transaction Simulator & Development Ecosystem.**
 
-[Explore Wiki](docs/WIKI.md) • [View Whitepaper](docs/WHITEPAPER.pdf) • [Report Bug](https://gitlab.com/osamabinlikhon/flash-usdt-sender/-/issues) • [Request Feature](https://gitlab.com/osamabinlikhon/flash-usdt-sender/-/issues)
+> [!IMPORTANT]
+> **FLASH BTC SPECIAL OFFER**: TODAY ONLY $99 (Reg. $129) + 1 Month FREE!
+
+[Explore Wiki](docs/WIKI.md) • [View Whitepaper](docs/WHITEPAPER.pdf) • [Contact Support](https://t.me/FlashUSDTokens)
 
 </div>
 
@@ -83,9 +86,11 @@ kubectl expose deployment flash-usdt-sender --type=LoadBalancer --name=flash-gat
 
 ## 💳 Support & Licensing
 
-**Premium Edition Access**: $250 USD
+**SPECIAL OFFER**: TODAY ONLY $99 (Includes +1 Month FREE)
 **Official Address**: `0x036A5065d103005D7CaF5d1Cd75ABE6644D69069`
-**Contact**: [@FlashUSDTSenderSupport](https://t.me/FlashUSDTSenderSupport) on Telegram.
+**Telegram**: [@UnPuzzles](https://t.me/UnPuzzles) / [FlashUSDTokens](https://t.me/FlashUSDTokens)
+**WhatsApp**: [+12052186093](https://wa.me/12052186093)
+**Web**: [flashusdtsender.xyz](https://flashusdtsender.xyz)
 
 ---
 
