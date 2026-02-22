@@ -1,0 +1,21 @@
+{
+  "name": "Flash USDT Sender Documentation",
+  "short_name": "Flash USDT",
+  "description": "Enterprise-grade solution for high-speed USDT transactions.",
+  "start_url": "/flash-usdt-sender/index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#38bdf8",
+  "icons": [
+    {
+      "src": "assets/usdt-logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/usdt-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

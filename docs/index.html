@@ -9,6 +9,9 @@
     <meta name="keywords" content="Flash USDT, USDT Sender, Crypto Transactions, Blockchain API, USDT Documentation">
     <meta name="author" content="Osama Bin Likhon">
     <meta name="robots" content="index, follow">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="assets/usdt-logo.png">
+    <meta name="theme-color" content="#38bdf8">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
@@ -108,6 +111,10 @@
         <h1>Flash USDT Sender</h1>
         <p>Enterprise Technical Documentation & Asset Hub</p>
 
+        <div id="status-bar" style="margin-bottom: 2rem; font-size: 0.9rem; color: var(--accent);">
+            Live USDT Price: <span id="usdt-price">$1.0000</span> (via Web Worker)
+        </div>
+
         <div class="grid">
             <a href="WHITEPAPER.pdf" class="card">
                 <h3>Technical Whitepaper</h3>
@@ -131,6 +138,26 @@
             &copy; 2026 Osama Bin Likhon. All rights reserved.
         </div>
     </div>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker registered', reg))
+                    .catch(err => console.error('Service Worker registration failed', err));
+            });
+        }
+
+        // Dedicated Web Worker for background tasks
+        if (window.Worker) {
+            const priceWorker = new Worker('worker.js');
+            priceWorker.postMessage('start');
+            priceWorker.onmessage = function(e) {
+                if (e.data.type === 'price_update') {
+                    document.getElementById('usdt-price').textContent = '$' + e.data.price;
+                }
+            };
+        }
+    </script>
 </body>
 
 </html>
