@@ -697,7 +697,7 @@ async function showPaymentScreen() {
     console.log();
   }
 
-  const { txId } = await inquirer.prompt([
+  const { txId, email } = await inquirer.prompt([
     {
       type: 'input',
       name: 'txId',
