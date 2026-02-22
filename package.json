@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Flash USDT Sender CLI - Fast, secure, low-fee BEP20 stablecoin transactions",
   "main": "src/index.js",
+  "type": "module",
   "bin": {
     "flash-usdt": "./src/index.js",
     "fusdt": "./src/index.js"
@@ -10,8 +11,10 @@
   "scripts": {
     "start": "node src/index.js",
     "lint": "eslint src/",
+    "lint:fix": "eslint src/ --fix",
     "typecheck": "tsc --noEmit",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "if [ -d .git ]; then npx husky install || true; fi"
   },
   "keywords": [
     "usdt",

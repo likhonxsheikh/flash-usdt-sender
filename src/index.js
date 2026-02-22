@@ -3,14 +3,12 @@
 const { program } = require('commander');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
-const figlet = require('figlet');
 const boxen = require('boxen');
 const gradient = require('gradient-string');
 const Conf = require('conf');
-const ora = require('ora');
 
 const config = new Conf({ projectName: 'flash-usdt-sender' });
-const { showAuthScreen, showPaymentScreen, showReferralScreen, showTelegramJoinBonus } = require('./auth/auth');
+const { showAuthScreen, showPaymentScreen, showReferralScreen } = require('./auth/auth');
 const { sendUSDT } = require('./commands/send');
 const { checkBalance } = require('./commands/balance');
 const { showHistory } = require('./commands/history');

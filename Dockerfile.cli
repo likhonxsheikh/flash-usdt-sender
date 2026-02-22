@@ -1,0 +1,13 @@
+# Multi-stage build for Flash USDT Sender (Node.js CLI)
+FROM node:18-slim AS builder
+
+WORKDIR /app
+COPY package*.json ./
+RUN npm install --production
+
+FROM node:18-slim
+WORKDIR /app
+COPY --from=builder /app/node_modules ./node_modules
+COPY . .
+
+ENTRYPOINT ["node", "src/index.js"]

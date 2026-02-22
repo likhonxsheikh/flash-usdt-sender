@@ -1,0 +1,17 @@
+[
+    {
+        "desc": "Check for missing .env file",
+        "cmd": "if (!(Test-Path .env)) { Write-Warning 'Environment configuration (.env) is missing!' }",
+        "critical": false
+    },
+    {
+        "desc": "Validate Python syntax",
+        "cmd": "python -m pyflakes flash-usdt-sender/src/",
+        "critical": true
+    },
+    {
+        "desc": "Validate Node.js syntax",
+        "cmd": "npm run lint",
+        "critical": true
+    }
+]

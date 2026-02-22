@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flash USDT Sender | Documentation Hub</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --accent: #38bdf8;
+            --secondary: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 800px;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: var(--secondary);
+            margin-bottom: 2.5rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            padding: 2rem;
+            border-radius: 1rem;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, background-color 0.2s;
+            border: 1px solid #334155;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background-color: #334155;
+            border-color: var(--accent);
+        }
+
+        .card h3 {
+            margin: 0 0 0.5rem 0;
+            color: var(--accent);
+        }
+
+        .card p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .footer {
+            margin-top: 4rem;
+            font-size: 0.8rem;
+            color: #475569;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Flash USDT Sender</h1>
+        <p>Enterprise Technical Documentation & Asset Hub</p>
+
+        <div class="grid">
+            <a href="WHITEPAPER.pdf" class="card">
+                <h3>Technical Whitepaper</h3>
+                <p>Protocol analysis, logic flow, and strategic overview (PDF).</p>
+            </a>
+            <a href="WIKI.md" class="card">
+                <h3>Project Wiki</h3>
+                <p>Comprehensive operation guides and user FAQ.</p>
+            </a>
+            <a href="ARCHITECTURE.md" class="card">
+                <h3>System Architecture</h3>
+                <p>Visual diagrams and modular breakdown of the ecosystem.</p>
+            </a>
+            <a href="API_REFERENCE.md" class="card">
+                <h3>API Reference</h3>
+                <p>Detailed specifications for Python & Node.js interfaces.</p>
+            </a>
+        </div>
+
+        <div class="footer">
+            &copy; 2026 Osama Bin Likhon. All rights reserved.
+        </div>
+    </div>
+</body>
+
+</html>

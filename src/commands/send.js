@@ -229,7 +229,7 @@ async function checkBalance(address = null) {
 
   const balances = [];
   
-  for (const [key, network] of Object.entries(NETWORKS)) {
+  for (const [_key, network] of Object.entries(NETWORKS)) {
     await new Promise(resolve => setTimeout(resolve, 300));
     
     const usdtBalance = (Math.random() * 10000).toFixed(2);

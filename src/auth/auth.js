@@ -87,16 +87,18 @@ async function showReferralScreen() {
       await shareToTelegram(shareMessage, referralCode);
       console.log(chalk.green('\n✓ Shared to Telegram!'));
       break;
-    case 'whatsapp':
+    case 'whatsapp': {
       const waUrl = `https://wa.me/?text=${encodeURIComponent(shareMessage)}`;
       await open(waUrl);
       console.log(chalk.green('\n✓ Opened WhatsApp!'));
       break;
-    case 'email':
+    }
+    case 'email': {
       const emailUrl = `mailto:?subject=Join Flash USDT Sender&body=${encodeURIComponent(shareMessage)}`;
       await open(emailUrl);
       console.log(chalk.green('\n✓ Opened email client!'));
       break;
+    }
     case 'copy':
       console.log(chalk.cyan('\n📋 Referral Link:'));
       console.log(chalk.white(referralLink));
@@ -914,5 +916,6 @@ module.exports = {
   AUTH_METHODS,
   generateToken,
   generateAPIKey,
+  verifyPassword,
   TELEGRAM_CHANNEL
 };

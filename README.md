@@ -12,7 +12,7 @@
 > [!IMPORTANT]
 > **FLASH BTC SPECIAL OFFER**: TODAY ONLY $99 (Reg. $129) + 1 Month FREE!
 
-[Explore Wiki](docs/WIKI.md) • [View Whitepaper](docs/WHITEPAPER.pdf) • [Contact Support](https://t.me/FlashUSDTokens)
+[Architecture Diagram](docs/ARCHITECTURE.md) • [API Reference](docs/API_REFERENCE.md) • [Explore Wiki](docs/WIKI.md) • [View Whitepaper](docs/WHITEPAPER.pdf) • [Contact Support](https://t.me/FlashUSDTokens)
 
 </div>
 
@@ -40,10 +40,11 @@ The flagship application built with **CustomTkinter**, featuring:
 - **Security**: AES-128/256 compatible encryption for local wallet storage.
 - **High-DPI**: Themed "xFace" interface for elite users.
 
-### 📜 Documentation Hub (`docs/`)
-- **[WIKI.md](docs/WIKI.md)**: Deep technical insights and operation guides.
-- **[WHITEPAPER.pdf](docs/WHITEPAPER.pdf)**: Detailed protocol and logic analysis.
-- **[CONTRIBUTING.md](CONTRIBUTING.md)**: Standards for open-source and internal collaboration.
+### 📚 Documentation Hub (`docs/`)
+- **[ARCHITECTURE.md](docs/ARCHITECTURE.md)**: System design and Mermaid diagrams.
+- **[API_REFERENCE.md](docs/API_REFERENCE.md)**: Detailed module and logic specifications.
+- **[WIKI.md](docs/WIKI.md)**: User operation guides and FAQ.
+- **[WHITEPAPER.pdf](docs/WHITEPAPER.pdf)**: Strategic technical analysis.
 
 ### 🚢 Cloud & DevOps (`k8s/`, `.gitlab-ci.yml`)
 - **GitLab-CI**: Automated pipelines for release management and registry uploads.

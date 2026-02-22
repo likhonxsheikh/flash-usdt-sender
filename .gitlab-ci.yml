@@ -1,5 +1,10 @@
+include:
+  - template: Security/SAST.gitlab-ci.yml
+  - template: Security/Secret-Detection.gitlab-ci.yml
+
 stages:
   - lint
+  - test
   - build
   - document
   - package
@@ -16,12 +21,20 @@ before_script:
   - python --version
   - pip install -r flash-usdt-sender/requirements.txt
 
-lint_code:
+lint_python:
   stage: lint
   script:
-    - echo "Running lint check..."
+    - echo "Running Python lint check..."
     - pip install pyflakes
     - python -m pyflakes flash-usdt-sender/src/
+
+lint_node:
+  stage: lint
+  image: node:18
+  script:
+    - echo "Running Node.js lint check..."
+    - npm install
+    - npm run lint
 
 generate_pdf:
   stage: document
@@ -62,7 +75,9 @@ pages:
     - mkdir -p public
     - cp flash-usdt-sender/docs/WHITEPAPER.pdf public/ || cp docs/WHITEPAPER.pdf public/
     - cp docs/WIKI.md public/
-    - echo "<html><body><h1>Flash USDT Sender Master Documentation</h1><ul><li><a href='WHITEPAPER.pdf'>Download Whitepaper PDF</a></li><li><a href='WIKI.md'>Project Wiki (Markdown)</a></li></ul></body></html>" > public/index.html
+    - cp docs/ARCHITECTURE.md public/
+    - cp docs/API_REFERENCE.md public/
+    - cp docs/pages_index.html public/index.html
   artifacts:
     paths:
       - public

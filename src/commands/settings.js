@@ -112,7 +112,7 @@ async function securitySettings() {
   ]);
 
   if (action === 'password') {
-    const { newPassword } = await inquirer.prompt([
+    await inquirer.prompt([
       {
         type: 'password',
         name: 'newPassword',

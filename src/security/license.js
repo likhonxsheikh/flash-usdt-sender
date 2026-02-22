@@ -1,6 +1,4 @@
 const crypto = require('crypto');
-const fs = require('fs');
-const path = require('path');
 const Conf = require('conf');
 
 const config = new Conf({ projectName: 'flash-usdt-sender' });
