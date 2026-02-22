@@ -77,7 +77,7 @@ pages:
     - cp docs/WIKI.md public/
     - cp docs/ARCHITECTURE.md public/
     - cp docs/API_REFERENCE.md public/
-    - cp docs/pages_index.html public/index.html
+    - cp docs/index.html public/index.html
   artifacts:
     paths:
       - public
