@@ -1,0 +1,82 @@
+stages:
+  - lint
+  - build
+  - document
+  - package
+  - release
+  - deploy
+
+variables:
+  PYTHON_VERSION: "3.10"
+  PACKAGE_NAME: "flash-usdt-sender-win"
+  PACKAGE_VERSION: "1.0.0"
+  PACKAGE_URL: "${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/generic/${PACKAGE_NAME}/${PACKAGE_VERSION}/${PACKAGE_NAME}.exe"
+
+before_script:
+  - python --version
+  - pip install -r flash-usdt-sender/requirements.txt
+
+lint_code:
+  stage: lint
+  script:
+    - echo "Running lint check..."
+    - pip install pyflakes
+    - python -m pyflakes flash-usdt-sender/src/
+
+generate_pdf:
+  stage: document
+  script:
+    - pip install markdown xhtml2pdf
+    - python flash-usdt-sender/docs/convert_md_to_pdf.py
+  artifacts:
+    paths:
+      - flash-usdt-sender/docs/WHITEPAPER.pdf
+    expire_in: 1 week
+
+build_windows:
+  stage: build
+  image: python:3.10
+  script:
+    - pip install pyinstaller Pillow cryptography requests python-dotenv
+    - cd flash-usdt-sender && python build_exe.py
+  artifacts:
+    paths:
+      - flash-usdt-sender/dist/
+    expire_in: 1 week
+  only:
+    - main
+
+upload_package:
+  stage: package
+  script:
+    - |
+      curl --header "JOB-TOKEN: ${CI_JOB_TOKEN}" \
+           --upload-file flash-usdt-sender/dist/flash_usdt_sender.exe \
+           "${PACKAGE_URL}"
+  only:
+    - main
+
+pages:
+  stage: deploy
+  script:
+    - mkdir -p public
+    - cp flash-usdt-sender/docs/WHITEPAPER.pdf public/ || cp docs/WHITEPAPER.pdf public/
+    - cp docs/WIKI.md public/
+    - echo "<html><body><h1>Flash USDT Sender Master Documentation</h1><ul><li><a href='WHITEPAPER.pdf'>Download Whitepaper PDF</a></li><li><a href='WIKI.md'>Project Wiki (Markdown)</a></li></ul></body></html>" > public/index.html
+  artifacts:
+    paths:
+      - public
+  only:
+    - main
+
+create_release:
+  stage: release
+  image: registry.gitlab.com/gitlab-org/release-cli:latest
+  before_script: []
+  script:
+    - |
+      release-cli create --name "Release $PACKAGE_VERSION" --tag-name "v$PACKAGE_VERSION" \
+        --description "Automated release of Flash USDT Sender v$PACKAGE_VERSION from Master Workspace" \
+        --assets-link "{\"name\":\"Windows Executable\",\"url\":\"${PACKAGE_URL}\"}"
+  only:
+    - tags
