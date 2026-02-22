@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flash-usdt-config
+  namespace: flash-usdt
+data:
+  NODE_ENV: "production"
+  API_BASE_URL: "https://api.flashusdtsender.xyz/v1"
+  LOG_LEVEL: "info"
+  REDIS_HOST: "redis-service"
+  REDIS_PORT: "6379"
+  MONGODB_URI: "mongodb://mongodb-service:27017/flashusdt"

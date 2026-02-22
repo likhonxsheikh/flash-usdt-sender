@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: flash-usdt
+  labels:
+    app: flash-usdt-sender
+    environment: production

@@ -1,0 +1,5 @@
+* @flashusdt/core-team
+*.md @flashusdt/docs-team
+src/security/* @flashusdt/security-team
+k8s/* @flashusdt/devops-team
+.github/* @flashusdt/devops-team

@@ -1,0 +1,46 @@
+flowchart TD
+    subgraph START["📱 Expo Android Build Options"]
+        START1[Expo Project]
+    end
+    
+    START1 --> CHOICE{Choose Build Method}
+    
+    subgraph QUICK["⚡ Quick Development"]
+        CHOICE -->|Fast Testing| EXPOGO[Expo Go]
+        EXPOGO -->|Requires Metro Bundler| TEST1[🔄 Live Reload]
+    end
+    
+    subgraph LOCAL["💻 Local Build"]
+        CHOICE -->|No Cloud| LOCALCMD[npx expo run:android]
+        LOCALCMD -->|Bundled JS| LOCALAPK[Standalone APK]
+    end
+    
+    subgraph CLOUD["☁️ EAS Build"]
+        CHOICE -->|Full Power| EASCMD[eas build]
+        
+        EASCMD --> DEV[Development Build]
+        EASCMD --> PRE[Preview Build]
+        EASCMD --> PROD[Production Build]
+        
+        DEV -->|With Chrome DevTools| DEVAPK[📱 Debug APK]
+        PRE -->|QR Code Share| PREAPK[📲 Preview APK]
+        PROD -->|Play Store| PRODAPK[🚀 Release APK]
+    end
+    
+    EXPOGO -.-|Push Notifications| NOTWORK[❌ Won't Work]
+    LOCALAPK -.->|Push Notifications| WORK1[✅ Works]
+    DEVAPK -.->|Push Notifications| WORK2[✅ Works]
+    PRODAPK -.->|Push Notifications| WORK3[✅ Works]
+    
+    NOTWORK -.- WORK1
+    WORK1 -.- WORK2
+    WORK2 -.- WORK3
+    
+    style EXPOGO fill:#e1f5fe,stroke:#0277bd
+    style LOCALAPK fill:#e8f5e8,stroke:#2e7d32
+    style DEVAPK fill:#fff3e0,stroke:#ef6c00
+    style PRODAPK fill:#f3e5f5,stroke:#7b1fa2
+    style NOTWORK fill:#ffebee,stroke:#c62828
+    style WORK1 fill:#e8f5e8,stroke:#2e7d32
+    style WORK2 fill:#e8f5e8,stroke:#2e7d32
+    style WORK3 fill:#e8f5e8,stroke:#2e7d32

@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flash-usdt-sender
+  labels:
+    app: flash-usdt-sender
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: flash-usdt-sender
+  template:
+    metadata:
+      labels:
+        app: flash-usdt-sender
+    spec:
+      containers:
+      - name: flash-usdt-sender
+        image: registry.gitlab.com/osamabinlikhon/flash-usdt-sender:latest
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - secretRef:
+            name: flash-usdt-sender-secrets
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flash-usdt-sender-service
+spec:
+  selector:
+    app: flash-usdt-sender
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer

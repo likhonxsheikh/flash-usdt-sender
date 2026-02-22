@@ -1,0 +1,11 @@
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: flash-usdt-api-pdb
+  namespace: flash-usdt
+spec:
+  minAvailable: 2
+  selector:
+    matchLabels:
+      app: flash-usdt-sender
+      component: api

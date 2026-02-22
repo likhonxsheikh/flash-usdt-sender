@@ -1,0 +1,27 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📚 Documentation
+    url: https://github.com/flashusdt/flash-usdt-sender/wiki
+    about: Check the documentation for guides and API reference
+  - name: 💬 Telegram Support
+    url: https://t.me/FlashUSDTokens
+    about: Join our Telegram for community support
+  - name: 📧 Email Support
+    url: mailto:support@flashusdtsender.xyz
+    about: Contact our support team directly
+
+issue_templates:
+  - name: 🐛 Bug Report
+    description: Report a bug in Flash USDT Sender
+    labels: ["bug", "needs-triage"]
+    template: bug_report.md
+    
+  - name: ✨ Feature Request
+    description: Suggest a new feature or enhancement
+    labels: ["enhancement", "needs-triage"]
+    template: feature_request.md
+    
+  - name: ❓ Question
+    description: Ask a question about Flash USDT Sender
+    labels: ["question"]
+    template: question.md

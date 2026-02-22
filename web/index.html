@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Flash USDT Sender - Fast, secure, low-fee BEP20 stablecoin transactions">
+  <meta name="theme-color" content="#0a0a0f">
+  <title>Flash USDT Sender</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%2300ffff'/%3E%3Ctext x='16' y='21' text-anchor='middle' font-size='14' font-weight='bold' fill='%230a0a0f'%3E$%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="src/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <canvas id="particlesCanvas" class="particles-canvas"></canvas>
+  <div class="app">
+    <header class="header">
+      <div class="logo">
+        <img src="src/usdt-logo.png" alt="USDT Logo" class="logo-img" onerror="this.style.display='none'" />
+        <span class="logo-text">Flash USDT</span>
+      </div>
+      <nav class="nav" id="nav" role="navigation" aria-label="Main navigation">
+        <button class="nav-btn active" data-page="home" aria-current="page">Home</button>
+        <button class="nav-btn" data-page="buy">Buy</button>
+        <button class="nav-btn" data-page="send">Send</button>
+        <button class="nav-btn" data-page="balance">Balance</button>
+        <button class="nav-btn" data-page="history">History</button>
+        <button class="nav-btn" data-page="docs">Docs</button>
+      </nav>
+      <div class="header-actions">
+        <button class="btn btn-outline" id="loginBtn" aria-label="Login">Login</button>
+        <div class="user-menu hidden" id="userMenu">
+          <span class="user-address" id="userAddress"></span>
+          <button class="btn btn-danger" id="logoutBtn" aria-label="Logout">Logout</button>
+        </div>
+        <button class="btn btn-icon theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="theme-icon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="main">
+      <!-- Auth Panel -->
+      <section class="auth-panel hidden" id="authPanel">
+        <div class="auth-container">
+          <h2>🔐 Authentication</h2>
+          <div class="auth-tabs">
+            <button class="auth-tab active" data-method="wallet">Wallet</button>
+            <button class="auth-tab" data-method="email">Email</button>
+            <button class="auth-tab" data-method="api">API Key</button>
+          </div>
+          
+          <form id="authForm" class="auth-form">
+            <!-- Wallet Auth -->
+            <div class="auth-method" data-method="wallet">
+              <input type="text" name="walletAddress" placeholder="Enter wallet address (0x...)" class="input">
+              <button type="submit" class="btn btn-primary btn-full">Connect Wallet</button>
+            </div>
+            
+            <!-- Email Auth -->
+            <div class="auth-method hidden" data-method="email">
+              <input type="email" name="email" placeholder="Email address" class="input">
+              <input type="password" name="password" placeholder="Password" class="input">
+              <button type="submit" class="btn btn-primary btn-full">Login</button>
+              <p class="auth-switch">Don't have an account? <a href="#" id="switchToRegister">Register</a></p>
+            </div>
+            
+            <!-- API Key Auth -->
+            <div class="auth-method hidden" data-method="api">
+              <input type="text" name="apiKey" placeholder="API Key (FUSDT_...)" class="input">
+              <button type="submit" class="btn btn-primary btn-full">Verify API Key</button>
+            </div>
+          </form>
+          
+          <div class="auth-info">
+            <p>Get your API key from <a href="#docs">documentation</a></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Home Page -->
+      <section class="page active" id="homePage">
+        <div class="hero">
+          <h1>Send USDT <span class="highlight">Instantly</span></h1>
+          <p class="subtitle">Fast, secure, low-fee BEP20 stablecoin transactions across multiple blockchains</p>
+        </div>
+        
+        <div class="features">
+          <div class="feature-card">
+            <span class="feature-icon">⚡</span>
+            <h3>100x Faster</h3>
+            <p>Instant transactions with advanced routing</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">💰</span>
+            <h3>$25K Daily</h3>
+            <p>High transaction limits for professionals</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🌐</span>
+            <h3>5 Blockchains</h3>
+            <p>ERC20, TRC20, BEP20, POLYGON, SOLANA</p>
+          </div>
+          <div class="feature-card">
+            <span class="feature-icon">🔒</span>
+            <h3>Secure</h3>
+            <p>End-to-end encrypted transactions</p>
+          </div>
+        </div>
+        
+        <div class="quick-actions">
+          <h2>Quick Actions</h2>
+          <div class="action-grid">
+            <button class="action-card" data-action="send">
+              <span class="action-icon">📤</span>
+              <span>Send USDT</span>
+            </button>
+            <button class="action-card" data-action="balance">
+              <span class="action-icon">💰</span>
+              <span>Check Balance</span>
+            </button>
+            <button class="action-card" data-action="history">
+              <span class="action-icon">📜</span>
+              <span>History</span>
+            </button>
+            <button class="action-card" onclick="showReferralModal()">
+              <span class="action-icon">📢</span>
+              <span>Invite Friends</span>
+            </button>
+          </div>
+        </div>
+        
+        <div class="telegram-cta" style="margin-top:30px;text-align:center;padding:20px;background:linear-gradient(135deg,rgba(0,255,255,0.1),rgba(255,215,0,0.1));border-radius:15px;border:1px solid rgba(0,255,255,0.3);">
+          <h3 style="color:#FFD700;margin-bottom:10px;">💬 Join Our Telegram Community</h3>
+          <p style="color:var(--text-secondary);margin-bottom:15px;">Get exclusive updates, signals, and support!</p>
+          <button class="btn btn-primary" onclick="window.open('https://t.me/FlashUSDTokens','_blank')" style="background:#0088CC;">
+            📱 Join @FlashUSDTokens
+          </button>
+        </div>
+        
+        <div class="networks">
+          <h2>Supported Networks</h2>
+          <div class="network-tags">
+            <span class="network-tag">ERC20</span>
+            <span class="network-tag">TRC20</span>
+            <span class="network-tag">BEP20</span>
+            <span class="network-tag">POLYGON</span>
+            <span class="network-tag">SOLANA</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Buy Page -->
+      <section class="page" id="buyPage">
+        <div class="page-header">
+          <h1>Buy Crypto</h1>
+          <p>Purchase USDT with fiat currency</p>
+        </div>
+        
+        <div class="buy-container">
+          <div class="buy-form">
+            <div class="form-group">
+              <label>You Pay</label>
+              <div class="buy-input-group">
+                <input type="number" id="buyAmount" placeholder="0.00" class="input" step="0.01">
+                <select id="buyCurrency" class="select">
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="GBP">GBP</option>
+                  <option value="BDT">BDT</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="buy-arrow">↓</div>
+            
+            <div class="form-group">
+              <label>You Receive (USDT)</label>
+              <div class="buy-input-group">
+                <input type="number" id="receiveAmount" placeholder="0.00" class="input" readonly>
+                <select id="receiveNetwork" class="select">
+                  <option value="bsc">🟡 BEP20 (BSC)</option>
+                  <option value="eth">🔷 ERC20 (Ethereum)</option>
+                  <option value="trc20">🔴 TRC20 (Tron)</option>
+                  <option value="polygon">🟣 POLYGON</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>Your Wallet Address</label>
+              <input type="text" id="walletAddress" placeholder="0x..." class="input" value="0x036A5065d103005D7CaF5d1Cd75ABE6644D69069">
+            </div>
+            
+            <div class="buy-summary">
+              <div class="summary-row">
+                <span>Exchange Rate:</span>
+                <span>1 USDT ≈ <span id="exchangeRate">1.00</span> <span class="currency-symbol">USD</span></span>
+              </div>
+              <div class="summary-row">
+                <span>Network Fee:</span>
+                <span>~<span id="buyFee">1.00</span> USDT</span>
+              </div>
+            </div>
+            
+            <button type="button" class="btn btn-primary btn-full" id="buyNowBtn">
+              Buy Now
+            </button>
+            
+            <p class="buy-partners">Powered by: <span class="partner-tags"><span>MoonPay</span><span>Simplex</span><span>Transak</span></span></p>
+          </div>
+          
+          <div class="buy-info">
+            <div class="buy-info-card">
+              <h3>💳 Payment Methods</h3>
+              <ul>
+                <li>Credit/Debit Card</li>
+                <li>Bank Transfer</li>
+                <li>Apple Pay / Google Pay</li>
+              </ul>
+            </div>
+            <div class="buy-info-card">
+              <h3>⚡ Instant Delivery</h3>
+              <ul>
+                <li>USDT delivered in minutes</li>
+                <li>Lowest fees on the market</li>
+                <li>24/7 Support available</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Send Page -->
+      <section class="page" id="sendPage">
+        <div class="page-header">
+          <h1>Send USDT</h1>
+          <p>Transfer USDT to any wallet address</p>
+        </div>
+        
+        <form id="sendForm" class="form">
+          <div class="form-group">
+            <label>Network</label>
+            <select name="network" class="select">
+              <option value="bsc">🟡 BEP20 (BSC)</option>
+              <option value="eth">🔷 ERC20 (Ethereum)</option>
+              <option value="trc20">🔴 TRC20 (Tron)</option>
+              <option value="polygon">🟣 POLYGON</option>
+              <option value="solana">🟠 SOLANA</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label>Recipient Address</label>
+            <div class="form-group-with-btn">
+              <input type="text" name="recipient" placeholder="0x..." class="input" required>
+              <button type="button" class="btn btn-outline" id="addressBookBtn" title="Address Book">📖</button>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Amount (USDT)</label>
+            <input type="number" name="amount" placeholder="0.00" step="0.01" class="input" required>
+          </div>
+          
+          <div class="form-group">
+            <label>Memo (Optional)</label>
+            <input type="text" name="memo" placeholder="Transaction memo" class="input">
+          </div>
+          
+          <div class="form-summary">
+            <div class="summary-row">
+              <span>Amount:</span>
+              <span id="summaryAmount">0.00 USDT</span>
+            </div>
+            <div class="summary-row">
+              <span>Network Fee:</span>
+              <span>~1 USDT</span>
+            </div>
+          </div>
+          
+          <button type="submit" class="btn btn-primary btn-full">
+            <span class="btn-text">Send USDT</span>
+            <span class="btn-loading hidden">Sending...</span>
+          </button>
+        </form>
+        
+        <div class="recent-recipients">
+          <h3>Recent Recipients</h3>
+          <div id="recentList" class="recent-list"></div>
+        </div>
+      </section>
+
+      <!-- Balance Page -->
+      <section class="page" id="balancePage">
+        <div class="page-header">
+          <h1>Wallet Balance</h1>
+          <p>View your USDT balance across networks</p>
+        </div>
+        
+        <div class="balance-cards" id="balanceCards">
+          <div class="balance-card">
+            <div class="balance-network">🟡 BEP20</div>
+            <div class="balance-amount">0.00</div>
+            <div class="balance-usd">$0.00 USD</div>
+          </div>
+          <div class="balance-card">
+            <div class="balance-network">🔷 ERC20</div>
+            <div class="balance-amount">0.00</div>
+            <div class="balance-usd">$0.00 USD</div>
+          </div>
+          <div class="balance-card">
+            <div class="balance-network">🔴 TRC20</div>
+            <div class="balance-amount">0.00</div>
+            <div class="balance-usd">$0.00 USD</div>
+          </div>
+          <div class="balance-card">
+            <div class="balance-network">🟣 POLYGON</div>
+            <div class="balance-amount">0.00</div>
+            <div class="balance-usd">$0.00 USD</div>
+          </div>
+          <div class="balance-card">
+            <div class="balance-network">🟠 SOLANA</div>
+            <div class="balance-amount">0.00</div>
+            <div class="balance-usd">$0.00 USD</div>
+          </div>
+        </div>
+        
+        <div class="total-balance">
+          <span class="total-label">Total Balance</span>
+          <span class="total-amount" id="totalBalance">0.00 USDT</span>
+        </div>
+      </section>
+
+      <!-- History Page -->
+      <section class="page" id="historyPage">
+        <div class="page-header">
+          <h1>Transaction History</h1>
+          <p>View all your past transactions</p>
+        </div>
+        
+        <div class="history-filters">
+          <select id="historyNetwork" class="select">
+            <option value="all">All Networks</option>
+            <option value="bsc">🟡 BEP20</option>
+            <option value="eth">🔷 ERC20</option>
+            <option value="trc20">🔴 TRC20</option>
+            <option value="polygon">🟣 POLYGON</option>
+            <option value="solana">🟠 SOLANA</option>
+          </select>
+          <select id="historyStatus" class="select">
+            <option value="all">All Status</option>
+            <option value="completed">Completed</option>
+            <option value="pending">Pending</option>
+            <option value="failed">Failed</option>
+          </select>
+        </div>
+        
+        <div class="history-list" id="historyList">
+          <div class="history-empty">
+            <span class="empty-icon">📜</span>
+            <p>No transactions yet</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Docs Page -->
+      <section class="page" id="docsPage">
+        <div class="page-header">
+          <h1>API Documentation</h1>
+          <p>Integrate Flash USDT into your applications</p>
+        </div>
+        
+        <div class="docs-nav">
+          <a href="#docs-auth" class="docs-link">Authentication</a>
+          <a href="#docs-endpoints" class="docs-link">Endpoints</a>
+          <a href="#docs-errors" class="docs-link">Error Codes</a>
+        </div>
+        
+        <div class="docs-content" id="docsContent">
+          <!-- Docs loaded dynamically -->
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>© 2024 Flash USDT Sender. All rights reserved.</p>
+      <div class="footer-links">
+        <a href="#">Telegram</a>
+        <a href="#">Support</a>
+        <a href="#docs">API Docs</a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Transaction Confirmation Modal -->
+  <div class="modal hidden" id="confirmModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Confirm Transaction</h2>
+        <button class="modal-close" id="confirmModalClose" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="confirm-details">
+          <div class="confirm-row">
+            <span class="confirm-label">Network</span>
+            <span class="confirm-value" id="confirmNetwork">BEP20</span>
+          </div>
+          <div class="confirm-row">
+            <span class="confirm-label">To</span>
+            <span class="confirm-value" id="confirmRecipient">0x...</span>
+          </div>
+          <div class="confirm-row">
+            <span class="confirm-label">Amount</span>
+            <span class="confirm-value highlight" id="confirmAmount">0.00 USDT</span>
+          </div>
+          <div class="confirm-row">
+            <span class="confirm-label">Fee</span>
+            <span class="confirm-value" id="confirmFee">~1 USDT</span>
+          </div>
+          <div class="confirm-row">
+            <span class="confirm-label">Total</span>
+            <span class="confirm-value" id="confirmTotal">0.00 USDT</span>
+          </div>
+        </div>
+        <p class="confirm-warning">⚠️ Transaction cannot be undone. Please verify all details.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="confirmCancel">Cancel</button>
+        <button class="btn btn-primary" id="confirmSend">Confirm Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Address Book Modal -->
+  <div class="modal hidden" id="addressBookModal">
+    <div class="modal-overlay"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Address Book</h2>
+        <button class="modal-close" id="addressBookClose" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="addAddressForm" class="add-address-form">
+          <input type="text" name="addressName" placeholder="Name (e.g., John's Wallet)" class="input" required>
+          <input type="text" name="addressValue" placeholder="Wallet Address (0x...)" class="input" required>
+          <button type="submit" class="btn btn-primary btn-full">Add Address</button>
+        </form>
+        <div class="address-list" id="addressList"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="src/app.js" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flash-usdt-ingress
+  namespace: flash-usdt
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: "10m"
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+    nginx.ingress.kubernetes.io/rate-limit-window: "1m"
+spec:
+  tls:
+    - hosts:
+        - api.flashusdtsender.xyz
+        - flashusdtsender.xyz
+      secretName: flash-usdt-tls
+  rules:
+    - host: api.flashusdtsender.xyz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: flash-usdt-api-service
+                port:
+                  number: 80
+    - host: flashusdtsender.xyz
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: flash-usdt-api-service
+                port:
+                  number: 80

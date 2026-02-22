@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expo Android Build Options</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            padding: 40px;
+            color: #fff;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            background: linear-gradient(90deg, #00d4ff, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .subtitle {
+            text-align: center;
+            color: #8892b0;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        .mermaid {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .legend {
+            margin-top: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .legend-item {
+            background: rgba(255,255,255,0.05);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .legend-item h3 {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+        .legend-item.quick { border-left: 4px solid #00d4ff; }
+        .legend-item.local { border-left: 4px solid #22c55e; }
+        .legend-item.cloud { border-left: 4px solid #a855f7; }
+        .legend-item.push { border-left: 4px solid #ef4444; }
+        .legend-item p { color: #8892b0; font-size: 0.95em; line-height: 1.6; }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+        }
+        .badge-green { background: rgba(34,197,94,0.2); color: #22c55e; }
+        .badge-red { background: rgba(239,68,68,0.2); color: #ef4444; }
+        .badge-yellow { background: rgba(251,191,36,0.2); color: #fbbf24; }
+        code {
+            background: rgba(0,0,0,0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Monaco', 'Consolas', monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📱 Expo Android Build Options</h1>
+        <p class="subtitle">Complete guide to building APKs with Expo - from quick testing to production deployment</p>
+        
+        <div class="mermaid">
+            flowchart TD
+                subgraph START["🚀 Starting Point"]
+                    START1[Expo Project]
+                end
+                
+                START1 --> CHOICE{Choose Build Method}
+                
+                subgraph QUICK["⚡ Quick Development (Expo Go)"]
+                    CHOICE -->|Fast Testing| EXPOGO[Expo Go App]
+                    EXPOGO -->|Requires Metro| TEST1[🔄 Live Reload]
+                end
+                
+                subgraph LOCAL["💻 Local Build"]
+                    CHOICE -->|No Cloud Needed| LOCALCMD[npx expo run:android]
+                    LOCALCMD -->|JS Bundled| LOCALAPK[📦 Standalone APK]
+                end
+                
+                subgraph CLOUD["☁️ EAS Build (Cloud)"]
+                    CHOICE -->|Full Power| EASCMD[eas build]
+                    
+                    EASCMD --> DEV[Development Build]
+                    EASCMD --> PRE[Preview Build]
+                    EASCMD --> PROD[Production Build]
+                    
+                    DEV -->|Chrome DevTools| DEVAPK[📱 Debug APK]
+                    PRE -->|QR Code| PREAPK[📲 Preview APK]
+                    PROD -->|Play Store| PRODAPK[🚀 Release APK]
+                end
+                
+                EXPOGO -.->|Push Notifications| NOTWORK[❌ Won't Work]
+                LOCALAPK -.->|Push| WORK1[✅ Works]
+                DEVAPK -.->|Push| WORK2[✅ Works]
+                PRODAPK -.->|Push| WORK3[✅ Works]
+                
+                NOTWORK --- WORK1 --- WORK2 --- WORK3
+                
+                style EXPOGO fill:#e1f5fe,stroke:#0277bd,color:#01579b
+                style LOCALAPK fill:#e8f5e8,stroke:#2e7d32,color:#1b5e20
+                style DEVAPK fill:#fff3e0,stroke:#ef6c00,color:#e65100
+                style PREAPK fill:#e0f7fa,stroke:#00838f,color:#006064
+                style PRODAPK fill:#f3e5f5,stroke:#7b1fa2,color:#4a148c
+                style NOTWORK fill:#ffebee,stroke:#c62828,color:#b71c1c
+                style WORK1 fill:#e8f5e8,stroke:#2e7d32,color:#1b5e20
+                style WORK2 fill:#e8f5e8,stroke:#2e7d32,color:#1b5e20
+                style WORK3 fill:#e8f5e8,stroke:#2e7d32,color:#1b5e20
+        </div>
+        
+        <div class="legend">
+            <div class="legend-item quick">
+                <h3>⚡ Expo Go</h3>
+                <p>Fastest way to test. Scan QR code, runs with Metro bundler. <span class="badge badge-red">Push Notifications ❌</span></p>
+                <p><code>npx expo start</code></p>
+            </div>
+            <div class="legend-item local">
+                <h3>💻 Local Build</h3>
+                <p>Build APK on your machine. No cloud required. Standalone APK with bundled JS. <span class="badge badge-green">Push ✅</span></p>
+                <p><code>npx expo run:android</code></p>
+            </div>
+            <div class="legend-item cloud">
+                <h3>☁️ EAS Build</h3>
+                <p>Cloud builds with full native debugging. Three modes: Development, Preview, Production. <span class="badge badge-green">Push ✅</span></p>
+                <p><code>eas build -p android</code></p>
+            </div>
+            <div class="legend-item push">
+                <h3>🔔 Push Notifications</h3>
+                <p>Important: Push notifications <strong>only work</strong> on standalone builds (local or EAS). They don't work on Expo Go.</p>
+                <p><span class="badge badge-green">Local APK ✅</span><span class="badge badge-green">EAS Build ✅</span></p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: 'dark',
+            flowchart: {
+                useMaxWidth: true,
+                htmlLabels: true,
+                curve: 'basis'
+            },
+            securityLevel: 'loose'
+        });
+    </script>
+</body>
+</html>
